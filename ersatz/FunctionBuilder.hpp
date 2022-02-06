@@ -13,16 +13,26 @@ namespace ers {
     class FunctionBuilder {
     public:
         struct Parameter {
-            Parameter(::std::string type_ = "void", ::std::string identifier_ = "", ::std::string default_ = "") :
+            Parameter(::std::string type_ = "void", ::std::string identifier_ = "", ::std::string default_ = "", const CodegenLang lang_ = CodegenLang::Cpp) :
                     type(std::move(type_)),
                     identifier(std::move(identifier_)),
-                    defaultArg(std::move(default_))
+                    defaultArg(std::move(default_)),
+                    lang(lang_)
             {}
 
             ::std::string type = "void";
             ::std::string identifier;
             ::std::string defaultArg;
+            CodegenLang lang;
         };
+
+        FunctionBuilder &setLang(const CodegenLang lang)
+        {
+            lang_ = lang;
+            traits_.initialize(lang);
+
+            return *this;
+        }
 
         FunctionBuilder &makeStatic();
 
@@ -99,6 +109,10 @@ namespace ers {
         bool hasTrailingReturn_ = false;
         bool hasFunctionBody_ = false;
 
+        CodegenLang lang_ = CodegenLang::Cpp;
+
+        CodegenLangTraitsDynamic traits_{};
+
         ::std::string designator_; /// Function designator (identifier by which the function is called).
         ::std::string returnType_ = "auto";
         ::std::string functionBody_;
@@ -146,12 +160,22 @@ struct fmt::formatter<ers::FunctionBuilder::Parameter> {
     auto format(const ers::FunctionBuilder::Parameter &param, FormatContext &ctx) -> decltype(ctx.out())
     {
         // ctx.out() is an output iterator to write to.
-        return format_to(ctx.out(),
-                         "{} {}{}",
-                         param.type,
-                         param.identifier,
-                         (param.defaultArg == "" ? "" : fmt::format(" = {}", param.defaultArg))
-        );
+        switch (param.lang) {
+            case ers::CodegenLang::Cpp:
+            case ers::CodegenLang::C:
+                return format_to(ctx.out(),
+                                 "{} {}{}",
+                                 param.type,
+                                 param.identifier,
+                                 (param.defaultArg == "" ? "" : fmt::format(" = {}", param.defaultArg))
+                );
+            case ers::CodegenLang::Python:
+                return format_to(ctx.out(),
+                                 "{}{}",
+                                 param.identifier,
+                                 (param.defaultArg == "" ? "" : fmt::format(" = {}", param.defaultArg))
+                );
+        }
     }
 };
 

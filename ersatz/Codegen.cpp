@@ -384,23 +384,23 @@ ers::Codegen::appendMultilineUnicodeCommentThickBox(const std::string &s, const 
 void ers::Codegen::comment_()
 {
     if (isCStyleComment_ && !(openCStyleComment_ || closeCStyleComment_)) {
-        append(" * ");
+        append(traits_.commentStyle2);
     } else if (isCPPStyleComment_) {
         if (isDocString_)
-            append("/// ");
+            append(traits_.docCommentStyle1);
         else
-            append("// ");
+            append(traits_.commentStyle1);
     }
 
     if (openCStyleComment_) {
         openCStyleComment_ = false;
         if (isDocString_)
-            append("/** ");
+            append(traits_.docCommentStyle2Open);
         else
-            append("/* ");
+            append(traits_.commentStyle2Open);
     } else if (closeCStyleComment_) {
         closeCStyleComment_ = false;
-        append(" */");
+        append(traits_.commentStyle2Close);
     }
 }
 

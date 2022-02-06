@@ -9,6 +9,7 @@ int main()
     ers::Codegen cg;
 
     cg
+    .setLang(ers::CodegenLang::Python)
     .toggleCStyleComment()
     .appendUnicodeBox("Here's a box")
     .appendUnicodeThickBox("Here's a thick box")

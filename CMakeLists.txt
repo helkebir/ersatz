@@ -14,7 +14,7 @@ endif()
 
 include_directories(ersatz ersatz/dep)
 
-add_library(ersatz STATIC ersatz/Codegen.cpp ersatz/Codegen.hpp ersatz/FunctionBuilder.cpp ersatz/FunctionBuilder.hpp ersatz/ClangFormatter.cpp ersatz/ClangFormatter.hpp)
+add_library(ersatz STATIC ersatz/Codegen.cpp ersatz/Codegen.hpp ersatz/FunctionBuilder.cpp ersatz/FunctionBuilder.hpp ersatz/ClangFormatter.cpp ersatz/ClangFormatter.hpp ersatz/CodegenLang.hpp ersatz/CodegenLangTraits.cpp ersatz/CodegenLangTraits.hpp)
 
 if(WITH_TESTS)
     add_executable(ersatz_test main.cpp ersatz/dep/catchOnce.hpp test/Codegen_test.cpp)
@@ -32,4 +32,8 @@ if(WITH_EXAMPLES)
     add_executable(codegen_formatting example/Codegen_formatting.cpp)
     set_target_properties(codegen_formatting PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/example")
     target_link_libraries(codegen_formatting ersatz)
+
+    add_executable(codegen_python example/Codegen_Python.cpp)
+    set_target_properties(codegen_python PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/example")
+    target_link_libraries(codegen_python ersatz)
 endif()

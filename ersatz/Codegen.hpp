@@ -9,6 +9,9 @@
 
 #include <fmt/core.h>
 
+#include "CodegenLang.hpp"
+#include "CodegenLangTraits.hpp"
+
 #include <utility>
 #include <string>
 #include <vector>
@@ -16,11 +19,23 @@
 #include <fstream>
 
 namespace ers {
+    class FunctionBuilder;
+
     class Codegen {
     public:
+        friend FunctionBuilder;
+
         Codegen() = default;
 
         Codegen(const ::std::stringstream &ss);
+
+        Codegen &setLang(const CodegenLang lang)
+        {
+            lang_ = lang;
+            traits_.initialize(lang);
+
+            return *this;
+        }
 
         inline Codegen &append(const ::std::string &s)
         {
@@ -185,6 +200,10 @@ namespace ers {
 
     protected:
         void comment_();
+
+        CodegenLang lang_ = CodegenLang::Cpp;
+
+        CodegenLangTraitsDynamic traits_{};
 
         ::std::stringstream ss_;
 
