@@ -176,6 +176,12 @@ struct fmt::formatter<ers::FunctionBuilder::Parameter> {
                                  (param.defaultArg == "" ? "" : fmt::format(" = {}", param.defaultArg))
                 );
         }
+
+        return format_to(ctx.out(),
+                         "{}{}",
+                         param.identifier,
+                         (param.defaultArg == "" ? "" : fmt::format(" = {}", param.defaultArg))
+        );
     }
 };
 

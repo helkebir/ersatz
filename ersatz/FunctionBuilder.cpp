@@ -236,6 +236,8 @@ ers::FunctionBuilder &ers::FunctionBuilder::appendFunction(ers::Codegen &cg)
         case CodegenLang::Python:
             return designator_;
     }
+
+    return designator_;
 }
 
 ::std::string ers::FunctionBuilder::makeParameterList() const
