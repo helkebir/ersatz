@@ -2356,7 +2356,7 @@ FMT_CONSTEXPR void handle_dynamic_spec(int& value,
                                               ctx.error_handler());
     break;
   case arg_id_kind::name:
-    value = detail::get_dynamic_spec<Handler>(ctx.arg(ref.val.name),
+    value = detail::get_dynamic_spec<Handler>(ctx.arg(ref.val.name_),
                                               ctx.error_handler());
     break;
   }

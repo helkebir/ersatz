@@ -4,11 +4,23 @@
 
 #include "Codegen.hpp"
 #include "FunctionBuilder.hpp"
+#include "VariableBuilder.hpp"
+#include "PreambleBuilder.hpp"
 #include "ClangFormatter.hpp"
 
 int main()
 {
     ers::Codegen cg;
+
+    {
+        ers::PreambleBuilder pb;
+
+        pb
+        .addImport("Eigen/Dense")
+        .setAngleBrackets();
+
+        pb.addPreamble(cg);
+    }
 
     cg
     .toggleCStyleComment(true).appendLine()
@@ -45,6 +57,15 @@ int main()
         .appendFunction(cg);
     }
 //    cg.toggleCPPStyleComment();
+
+    {
+        ers::VariableBuilder vb;
+        vb
+        .addMatrix("M", 4, 4, "double")
+        .makeStatic();
+
+        vb.appendVariables(cg);
+    }
 
 
     cg.print();

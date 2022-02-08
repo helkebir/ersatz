@@ -182,5 +182,5 @@ Beside the [{fmt}](https://fmt.dev/latest/index.html) library, inspiration was d
 * [Apache Velocity](https://velocity.apache.org/engine/1.7/user-guide.html)
 * [Haxe Templates](https://api.haxe.org/haxe/Template.html)
 
-The name _ersatz_ was drawn from the economic term [_ersatz good_](https://en.wikipedia.org/wiki/Ersatz_good), which
+The name_ _ersatz_ was drawn from the economic term [_ersatz good_](https://en.wikipedia.org/wiki/Ersatz_good), which
 refers to substitute goods. The word Ersatz in German translates to _substitute_ or _replacement_ in English. 

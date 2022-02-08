@@ -4,12 +4,23 @@
 
 #include "Codegen.hpp"
 #include "FunctionBuilder.hpp"
-#include "ClangFormatter.hpp"
+#include "VariableBuilder.hpp"
+#include "PreambleBuilder.hpp"
 
 int main()
 {
     ers::Codegen cg;
     cg.setLang(ers::CodegenLang::Python);
+
+    {
+        ers::PreambleBuilder pb;
+
+        pb
+                .addImport("numpy")
+                .setAlias("np");
+
+        pb.addPreamble(cg);
+    }
 
 //    cg.toggleCPPStyleComment();
     {
@@ -29,6 +40,16 @@ int main()
                 .appendFunction(cg);
     }
 //    cg.toggleCPPStyleComment();
+
+    {
+        ers::VariableBuilder vb;
+        vb
+                .setLang(ers::CodegenLang::Python)
+                .addMatrix("M", 4, 4, "float")
+                .makeStatic();
+
+        vb.appendVariables(cg);
+    }
 
 
     cg.print();

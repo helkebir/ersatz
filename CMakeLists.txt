@@ -14,7 +14,7 @@ endif()
 
 include_directories(ersatz ersatz/dep)
 
-add_library(ersatz STATIC ersatz/Codegen.cpp ersatz/Codegen.hpp ersatz/FunctionBuilder.cpp ersatz/FunctionBuilder.hpp ersatz/ClangFormatter.cpp ersatz/ClangFormatter.hpp ersatz/CodegenLang.hpp ersatz/CodegenLangTraits.cpp ersatz/CodegenLangTraits.hpp)
+add_library(ersatz STATIC ersatz/Codegen.cpp ersatz/Codegen.hpp ersatz/FunctionBuilder.cpp ersatz/FunctionBuilder.hpp ersatz/ClangFormatter.cpp ersatz/ClangFormatter.hpp ersatz/CodegenLang.hpp ersatz/CodegenLangTraits.cpp ersatz/CodegenLangTraits.hpp ersatz/VariableBuilder.cpp ersatz/VariableBuilder.hpp ersatz/PreambleBuilder.cpp ersatz/PreambleBuilder.hpp)
 
 if(WITH_TESTS)
     add_executable(ersatz_test main.cpp ersatz/dep/catchOnce.hpp test/Codegen_test.cpp)

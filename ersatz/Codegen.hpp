@@ -37,6 +37,9 @@ namespace ers {
             return *this;
         }
 
+        CodegenLang getLang() const
+        { return lang_; }
+
         inline Codegen &append(const ::std::string &s)
         {
             ss_ << s;

@@ -162,7 +162,7 @@ ers::FunctionBuilder &ers::FunctionBuilder::appendFunction(ers::Codegen &cg)
         case CodegenLang::C:
             declarationTemplate = "{}({}){}{}{}";
         case CodegenLang::Python:
-            declarationTemplate = "{}({}):{}{}{}";
+            declarationTemplate = "def {}({}):{}{}{}";
     }
 
     declaration = fmt::format(declarationTemplate,
